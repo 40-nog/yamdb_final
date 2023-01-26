@@ -96,6 +96,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         review = get_object_or_404(Review, id=review_id)
         if review.title == title:
             return review.comments.all()
+        return None
 
     def perform_create(self, serializer):
         serializer.save(
@@ -115,8 +116,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.request.path == '/api/v1/users/me/':
             return User.objects.get(id=self.request.user.id)
-        else:
-            return User.objects.all()
+        return User.objects.all()
 
     def get_object(self):
         if self.request.path == '/api/v1/users/me/':
@@ -150,9 +150,8 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(
                 serializer.data,
                 status=status.HTTP_400_BAD_REQUEST)
-        else:
-            kwargs['partial'] = True
-            return self.update(request, *args, **kwargs)
+        kwargs['partial'] = True
+        return self.update(request, *args, **kwargs)
 
     @action(detail=True, methods=['get', 'patch'], url_path='me')
     def my_profile(self, request):

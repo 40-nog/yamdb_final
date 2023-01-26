@@ -23,8 +23,7 @@ class IsAdminOrReadOnly(AllowAny):
                 or request.user.role == 'admin'
                 or request.user.is_superuser
             )
-        else:
-            return request.method in SAFE_METHODS
+        return request.method in SAFE_METHODS
 
 
 class IsStaffOrAuthorOrReadOnly(IsAuthenticatedOrReadOnly):
