@@ -96,7 +96,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         review = get_object_or_404(Review, id=review_id)
         if review.title == title:
             return review.comments.all()
-        return None
+        return 1
 
     def perform_create(self, serializer):
         serializer.save(
