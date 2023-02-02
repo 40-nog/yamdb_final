@@ -11,7 +11,7 @@ services:
       - postgres-value:/var/lib/postgresql/data/
 
   web:
-    image: nava40a/api_yamdb:latest
+    image: nava40a/api_yamdb
     #build: ../api_yamdb/
     restart: always
     volumes:
